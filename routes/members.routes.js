@@ -18,7 +18,7 @@ router.get('/:id', (req, res) => {
     [memberId],
     (err, results) => {
       if (err) {
-        res.status(500).send('Error retrieving members from database');
+        res.status(500).send('Error retrieving member from database');
       } else {
         if (results.length) res.json(results[0]);
         else res.status(404).send('Member not found');
@@ -27,10 +27,26 @@ router.get('/:id', (req, res) => {
   );
 });
 
+router.get('/:id', (req, res) => {
+  const memberId = req.params.id;
+  connection.query(
+    'SELECT * FROM member WHERE id = ?',
+    [memberId],
+    (err, results) => {
+      if (err) {
+        res.status(500).send('Error retrieving Members from database');
+      } else {
+        if (results.length) res.json(results[0]);
+        else res.status(404).send('Members not found');
+      }
+    }
+  );
+});
+
 router.post('/', (req, res) => {
   const { name } = req.body;
   connection.query(
-    'INSERT INTO name ( name ) VALUES (?)',
+    'INSERT INTO member ( name ) VALUES (?)',
     [name],
     (err, result) => {
       if (err) {
