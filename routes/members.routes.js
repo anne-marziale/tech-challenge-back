@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
     (err, result) => {
       if (err) {
         console.error(err);
-        res.status(500).send('Error saving the name');
+        res.status(500).send('Error saving the member');
       } else {
         const id = result.insertId;
         const createdMember = { id, name };
